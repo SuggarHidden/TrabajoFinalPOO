@@ -6,7 +6,7 @@ import java.awt.*;
 public class FrameMain extends JFrame {
     public FrameMain() {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
-        Color fondoMenu = new Color(5, 56, 119);
+        Color fondoMenu = new Color(10, 118, 255);
             super.setTitle("Nombre de la app");
             super.setSize(500, 720);
             super.setResizable(false);
