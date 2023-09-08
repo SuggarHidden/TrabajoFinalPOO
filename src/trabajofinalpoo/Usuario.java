@@ -4,8 +4,8 @@ public abstract class Usuario {
     private String apellidos;
     private String email;
     private String contraseña;
-    private Corredor corredor;
     private double tarifaInicial;
+    private Corredor corredor;
     public Usuario(String nombre, String apellidos, String email, String contraseña) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -14,7 +14,7 @@ public abstract class Usuario {
     }
 
     public void setCorredor(String tipo) {
-        this.corredor = new Corredor(tipo);
+        corredor = new Corredor(tipo);
         switch (tipo) {
             case "rojo":
                 tarifaInicial = 2.20;
@@ -30,8 +30,9 @@ public abstract class Usuario {
                 break;
         }
     }
-
-    // mierda
+    public String getCorredor() {
+        return corredor.getTipo();
+    }
     public String getNombre() {
         return nombre;
     }
@@ -59,4 +60,5 @@ public abstract class Usuario {
     public double getTarifaInicial() {
         return tarifaInicial;
     }
+    public abstract void selectCorredor(String tipo);
 }
