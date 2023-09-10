@@ -12,4 +12,8 @@ public class Estudiante extends General {
         return discount;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+"\n discount = " + discount;
+    }
 }

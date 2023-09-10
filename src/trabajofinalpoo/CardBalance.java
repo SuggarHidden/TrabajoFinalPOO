@@ -2,7 +2,6 @@ package trabajofinalpoo;
 
 import trabajofinalpoo.enums.Corredor;
 
-
 public class CardBalance {
     private double balance;
     public CardBalance() {
@@ -20,16 +19,21 @@ public class CardBalance {
         return getBalance() - (Main.getFees(corredor)*discount) > 0.0;
     }
 
-    public double makePayment(Corredor corredor){
-        double newBalance = getBalance() - Main.getFees(corredor);
-        this.balance = newBalance;
-        return newBalance;
+    public double makePayment(Corredor corredor) throws Exception {
+        if (canPay(corredor)) {
+            double newBalance = getBalance() - Main.getFees(corredor);
+            this.balance = newBalance;
+            return newBalance;
+        }
+        else throw new Exception("No tienes saldo suficiente para pagar el pasaje");
     }
 
-    public double makePayment(Corredor corredor, double discount){
-        double newBalance = getBalance() - (Main.getFees(corredor)*discount);
-        this.balance = newBalance;
-        return newBalance;
+    public double makePayment(Corredor corredor, double discount) throws Exception{
+        if (canPay(corredor, discount)) {
+            double newBalance = getBalance() - (Main.getFees(corredor)*discount);
+            this.balance = newBalance;
+            return newBalance;
+        } else throw new Exception("No tienes saldo suficiente para pagar el pasaje");
     }
     public double getBalance() {
         return balance;

@@ -1,9 +1,9 @@
 
 package trabajofinalpoo;
-import trabajofinalpoo.gui.Gui;
+
 import trabajofinalpoo.enums.Corredor;
+import trabajofinalpoo.gui.Gui;
 import trabajofinalpoo.users.Estudiante;
-import trabajofinalpoo.users.General;
 
 import java.util.HashMap;
 

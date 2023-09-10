@@ -5,9 +5,6 @@ import trabajofinalpoo.CardBalance;
 public class General {
     private String name, lastname, email, password;
     private CardBalance card;
-    public General() {
-        this.card = new CardBalance();
-    }
     public General(String name, String lastname, String email, String password) {
         this.name = name;
         this.lastname = lastname;
@@ -65,12 +62,10 @@ public class General {
 
     @Override
     public String toString() {
-        return "General{" +
-                "name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", card=" + card.getBalance() +
-                '}';
+        return  "name = '" + name + '\'' +
+                ", lastname = '" + lastname + '\'' +
+                ", email = '" + email + '\'' +
+                ", password = '" + password + '\'' +
+                ", card = " + card.getBalance();
     }
 }
