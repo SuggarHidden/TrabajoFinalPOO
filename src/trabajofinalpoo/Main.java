@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Main {
 
-    private static HashMap<Corredor, Double> fees = new HashMap<>(4);
+    private static final HashMap<Corredor, Double> fees = new HashMap<>(4);
     public static void main(String[] args) {
         initFees();
         new Gui();
