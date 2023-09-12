@@ -17,3 +17,5 @@ public class Estudiante extends General {
         return super.toString()+"\n discount = " + discount;
     }
 }
+
+

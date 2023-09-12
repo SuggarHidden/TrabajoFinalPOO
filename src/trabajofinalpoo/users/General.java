@@ -3,19 +3,19 @@ package trabajofinalpoo.users;
 import trabajofinalpoo.CardBalance;
 
 public class General {
-    private String name, lastName, email, password;
+    private String name, lastname, email, password;
     private CardBalance card;
-    public General(String name, String lastName, String email, String password) {
+    public General(String name, String lastname, String email, String password) {
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.card = new CardBalance();
     }
 
-    public General(String name, String lastName, String email, String password, double balance) {
+    public General(String name, String lastname, String email, String password, double balance) {
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.card = new CardBalance(balance);
@@ -28,12 +28,12 @@ public class General {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -63,7 +63,7 @@ public class General {
     @Override
     public String toString() {
         return  "name = '" + name + '\'' +
-                ", lastname = '" + lastName + '\'' +
+                ", lastname = '" + lastname + '\'' +
                 ", email = '" + email + '\'' +
                 ", password = '" + password + '\'' +
                 ", card = " + card.getBalance();
