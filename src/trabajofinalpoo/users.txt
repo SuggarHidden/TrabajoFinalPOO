@@ -1,0 +1,5 @@
+general nombre apellido correo4 contra 28.0
+general nombre apellido correo5 contra 68.0
+general nombre apellido correo2 contra 28.0
+estudiante nombre apellido correo3 contra 98.0
+general nombre apellido correo1 contra 18.0
