@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginForm extends JFrame implements ActionListener {
+import static trabajofinalpoo.Main.getUser;
+
+public class LoginForm extends JFrame {
     private JLabel titulo, emailLabel, passwordLabel, forgotPasswordLabel;
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -13,7 +15,8 @@ public class LoginForm extends JFrame implements ActionListener {
 
     public LoginForm() {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
-        Color fondoMenu = new Color(10, 118, 255);
+        Color fondoMenu = new Color(6, 65, 138);
+        Color fontColor = new Color(246, 243, 243);
         Font font = new Font("Monospaced", Font.PLAIN, 16);
             super.setTitle("Nombre de la app");
             super.setSize(500, 720);
@@ -30,6 +33,7 @@ public class LoginForm extends JFrame implements ActionListener {
             ImageIcon icono2 = new ImageIcon(getClass().getResource("logoatu.png"));
             Image iconoScaled = icono2.getImage().getScaledInstance(204, 118, Image.SCALE_DEFAULT);
             icono2 = new ImageIcon(iconoScaled);
+
             titulo.setIcon(icono2);
             titulo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 70));
             titulo.setForeground(new Color(222, 219, 219));
@@ -46,9 +50,11 @@ public class LoginForm extends JFrame implements ActionListener {
             loginButton = new JButton("Iniciar sesión");
             registerButton = new JButton("Registrarse");
             emailLabel = new JLabel("Correo electrónico:");
+            emailLabel.setForeground(fontColor);
             passwordLabel = new JLabel("Contraseña:");
+            passwordLabel.setForeground(fontColor);
             forgotPasswordLabel = new JLabel("¿Olvidaste tu contraseña?");
-
+            forgotPasswordLabel.setForeground(fontColor);
             emailLabel.setBounds(x/6, 230, 300, 20);
             emailField.setBounds(x/6, 250, 300, 40);
             passwordLabel.setBounds(x/6, 300, 300, 20);
@@ -57,13 +63,30 @@ public class LoginForm extends JFrame implements ActionListener {
 
             loginButton.setBounds(width-150, 420, 150, 40);
             registerButton.setBounds(width-150, 475, 150, 40);
+            loginButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        getUser(emailField.getText(), passwordField.getText());
+                        JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                        LoginForm.super.dispose();
+                        new MenuForm();
 
+                    } catch (RuntimeException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+            });
+            registerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    LoginForm.super.dispose();
+                    new RegisterForm();
+                }
+            });
             emailField.setFont(font);
             passwordField.setFont(font);
 
-
-            loginButton.addActionListener(this);
-            registerButton.addActionListener(this);
 
             super.add(titulo);
             super.add(emailField);
@@ -74,21 +97,11 @@ public class LoginForm extends JFrame implements ActionListener {
             super.add(passwordLabel);
             super.add(forgotPasswordLabel);
 
+            super.setVisible(true);
+
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginButton) {
-
-            super.setVisible(false);
-        }
-
-        if (e.getSource() == registerButton) {
-            new RegisterForm();
-            super.setVisible(false);
-        }
-    }
 
 }
 

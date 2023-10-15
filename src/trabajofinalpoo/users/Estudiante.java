@@ -7,6 +7,10 @@ public class Estudiante extends General {
         super(name, lastName, email, password);
         this.discount = 0.5;
     }
+    public Estudiante(String name, String lastname, String email, String password, double balance) {
+        super(name, lastname, email, password, balance);
+        this.discount = 0.5;
+    }
 
     public double getDiscount() {
         return discount;
