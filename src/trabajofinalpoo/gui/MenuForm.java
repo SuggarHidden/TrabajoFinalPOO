@@ -18,12 +18,6 @@ public class MenuForm extends JFrame {
         super.getContentPane().setBackground(fondoMenu);
         super.setLayout(null);
 
-
-
-
-
-
-
         super.setVisible(true);
 
 

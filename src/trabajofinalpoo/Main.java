@@ -84,6 +84,8 @@ public class Main {
             if(!(general.getPassword().equals(contraseña))){
                 throw new RuntimeException("Contraseña incorrecta");
             }
+        } else if (correo.isEmpty() || contraseña.isEmpty()){
+            throw new RuntimeException("Hay campos sin llenar");
         } else {
             throw new RuntimeException("Usuario no encontrado");
         }
