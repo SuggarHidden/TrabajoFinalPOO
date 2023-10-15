@@ -14,12 +14,13 @@ public class Main {
     private static HashMap<String, General> users = new HashMap<>();
     public static void main(String[] args) {
         initFees();
-        new LoginForm();
         loadUsers();
-        users.forEach((s, general) -> {
-            if(general instanceof Estudiante) general.getCard().addBalance(20.0);
+        new LoginForm();
+       users.forEach((s, general) -> {
+           System.out.println(s+ " " + general);
         });
-        saveUsers();
+
+
     }
     private static void initFees(){
         fees.put(Corredor.AZUL, 2.20);
@@ -31,13 +32,11 @@ public class Main {
         return fees.get(corredor);
     }
 
-    public static void loadUsers(){
+    public static void loadUsers() {
         try {
-            String packageName = Main.class.getPackage().getName();
-            String filePath = packageName.replace(".", "/") + "/users.txt";
-            InputStream inputStream = Main.class.getClassLoader().getResourceAsStream(filePath);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String packageName = Main.class.getPackageName();
+            File file = new File(packageName + "/src/" + packageName + "/users.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] info = line.split(" ");
@@ -48,57 +47,46 @@ public class Main {
                 }
             }
             reader.close();
-        } catch (IOException e) {
+            System.out.println(packageName);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-    public static void saveUsers(){
-        try {
-            String packageName = Main.class.getPackage().getName();
-            String filePath = packageName.replace(".", "/") + "/src/"+packageName+"/users.txt";
-            File file = new File(filePath);
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            users.forEach((s, general) -> {
-                try {
-                    String userInfo = "general " + general.getName() + " " + general.getLastname() + " "
-                            + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
-                    if(general instanceof Estudiante){
-                        userInfo = "estudiante " + general.getName() + " " + general.getLastname()
-                                + " " + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
-                    }
-                    writer.write(userInfo);
-                    writer.newLine();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void addUser(General general){
-        users.put(general.getEmail(), general);
-
-        String packageName = Main.class.getPackage().getName();
-        String filePath = packageName.replace(".", "/") + "/src/"+packageName+"/users.txt";
-        File file = new File(filePath);
-
-        try {
-            System.out.println("añadiendo nueva linea");
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-            String userInfo = "general " + general.getName() + " " + general.getLastname() + " " + general.getEmail() + " "
-                    + general.getPassword() + " " + general.getCard().getBalance();
-            writer.write(userInfo);
-            writer.newLine();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (users.containsKey(general.getEmail())){
+            throw new RuntimeException("El usuario ya existe");
+        } else {
+            users.put(general.getEmail(), general);
+            String packageName = Main.class.getPackage().getName();
+            String filePath = packageName.replace(".", "/") + "/src/"+packageName+"/users.txt";
+            File file = new File(filePath);
+            try {
+                System.out.println("añadiendo nueva linea");
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+                String userInfo = "general " + general.getName() + " " + general.getLastname() + " " + general.getEmail() + " "
+                        + general.getPassword() + " " + general.getCard().getBalance();
+                writer.write(userInfo);
+                writer.newLine();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("usuario añadido");
+    }
 
+    public static void getUser(String correo, String contraseña){
+        if(users.containsKey(correo)){
+            General general = users.get(correo);
+            if(!(general.getPassword().equals(contraseña))){
+                throw new RuntimeException("Contraseña incorrecta");
+            }
+        } else {
+            throw new RuntimeException("Usuario no encontrado");
+        }
 
     }
 

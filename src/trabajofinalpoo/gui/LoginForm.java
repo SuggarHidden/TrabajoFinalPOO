@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static trabajofinalpoo.Main.getUser;
+
 public class LoginForm extends JFrame {
     private JLabel titulo, emailLabel, passwordLabel, forgotPasswordLabel;
     private JTextField emailField;
@@ -13,7 +15,8 @@ public class LoginForm extends JFrame {
 
     public LoginForm() {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
-        Color fondoMenu = new Color(10, 118, 255);
+        Color fondoMenu = new Color(6, 65, 138);
+        Color fontColor = new Color(246, 243, 243);
         Font font = new Font("Monospaced", Font.PLAIN, 16);
             super.setTitle("Nombre de la app");
             super.setSize(500, 720);
@@ -47,9 +50,11 @@ public class LoginForm extends JFrame {
             loginButton = new JButton("Iniciar sesión");
             registerButton = new JButton("Registrarse");
             emailLabel = new JLabel("Correo electrónico:");
+            emailLabel.setForeground(fontColor);
             passwordLabel = new JLabel("Contraseña:");
+            passwordLabel.setForeground(fontColor);
             forgotPasswordLabel = new JLabel("¿Olvidaste tu contraseña?");
-
+            forgotPasswordLabel.setForeground(fontColor);
             emailLabel.setBounds(x/6, 230, 300, 20);
             emailField.setBounds(x/6, 250, 300, 40);
             passwordLabel.setBounds(x/6, 300, 300, 20);
@@ -61,7 +66,15 @@ public class LoginForm extends JFrame {
             loginButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    try {
+                        getUser(emailField.getText(), passwordField.getText());
+                        JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                        LoginForm.super.dispose();
+                        new MenuForm();
 
+                    } catch (RuntimeException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
                 }
             });
             registerButton.addActionListener(new ActionListener() {
@@ -88,6 +101,7 @@ public class LoginForm extends JFrame {
 
 
     }
+
 
 }
 

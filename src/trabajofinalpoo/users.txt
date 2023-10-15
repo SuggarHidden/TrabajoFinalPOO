@@ -1,3 +1,3 @@
-general a b c d 0.0
-general a b c d 0.0
 general Lorena Kim lorenakim@gmail.com lore123 0.0
+general lore kim lorek@gmail.ci 123 0.0
+general pepito perez pepito@gmail.com 123 0.0
