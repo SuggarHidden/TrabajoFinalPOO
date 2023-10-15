@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginForm extends JFrame implements ActionListener {
+public class LoginForm extends JFrame {
     private JLabel titulo, emailLabel, passwordLabel, forgotPasswordLabel;
     private JTextField emailField;
     private JPasswordField passwordField;
@@ -30,6 +30,7 @@ public class LoginForm extends JFrame implements ActionListener {
             ImageIcon icono2 = new ImageIcon(getClass().getResource("logoatu.png"));
             Image iconoScaled = icono2.getImage().getScaledInstance(204, 118, Image.SCALE_DEFAULT);
             icono2 = new ImageIcon(iconoScaled);
+
             titulo.setIcon(icono2);
             titulo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 70));
             titulo.setForeground(new Color(222, 219, 219));
@@ -57,13 +58,22 @@ public class LoginForm extends JFrame implements ActionListener {
 
             loginButton.setBounds(width-150, 420, 150, 40);
             registerButton.setBounds(width-150, 475, 150, 40);
+            loginButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
+                }
+            });
+            registerButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    LoginForm.super.dispose();
+                    new RegisterForm();
+                }
+            });
             emailField.setFont(font);
             passwordField.setFont(font);
 
-
-            loginButton.addActionListener(this);
-            registerButton.addActionListener(this);
 
             super.add(titulo);
             super.add(emailField);
@@ -74,20 +84,9 @@ public class LoginForm extends JFrame implements ActionListener {
             super.add(passwordLabel);
             super.add(forgotPasswordLabel);
 
+            super.setVisible(true);
 
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginButton) {
-
-            super.setVisible(false);
-        }
-
-        if (e.getSource() == registerButton) {
-            new RegisterForm();
-            super.setVisible(false);
-        }
     }
 
 }

@@ -2,7 +2,7 @@
 package trabajofinalpoo;
 
 import trabajofinalpoo.enums.Corredor;
-import trabajofinalpoo.gui.Gui;
+import trabajofinalpoo.gui.LoginForm;
 import trabajofinalpoo.users.Estudiante;
 import trabajofinalpoo.users.General;
 
@@ -14,7 +14,7 @@ public class Main {
     private static HashMap<String, General> users = new HashMap<>();
     public static void main(String[] args) {
         initFees();
-        new Gui();
+        new LoginForm();
         loadUsers();
         users.forEach((s, general) -> {
             if(general instanceof Estudiante) general.getCard().addBalance(20.0);
@@ -61,9 +61,11 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             users.forEach((s, general) -> {
                 try {
-                    String userInfo = "general " + general.getName() + " " + general.getLastname() + " " + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
+                    String userInfo = "general " + general.getName() + " " + general.getLastname() + " "
+                            + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
                     if(general instanceof Estudiante){
-                        userInfo = "estudiante " + general.getName() + " " + general.getLastname() + " " + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
+                        userInfo = "estudiante " + general.getName() + " " + general.getLastname()
+                                + " " + general.getEmail() + " " + general.getPassword() + " " + general.getCard().getBalance();
                     }
                     writer.write(userInfo);
                     writer.newLine();
@@ -76,6 +78,30 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    public static void addUser(General general){
+        users.put(general.getEmail(), general);
+
+        String packageName = Main.class.getPackage().getName();
+        String filePath = packageName.replace(".", "/") + "/src/"+packageName+"/users.txt";
+        File file = new File(filePath);
+
+        try {
+            System.out.println("añadiendo nueva linea");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            String userInfo = "general " + general.getName() + " " + general.getLastname() + " " + general.getEmail() + " "
+                    + general.getPassword() + " " + general.getCard().getBalance();
+            writer.write(userInfo);
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("usuario añadido");
+
+
+    }
+
 
 }
 
