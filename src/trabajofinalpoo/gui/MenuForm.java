@@ -1,11 +1,21 @@
 package trabajofinalpoo.gui;
 
+import trabajofinalpoo.users.General;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static trabajofinalpoo.Main.getUser;
+import static trabajofinalpoo.Main.saveUser;
 
 public class MenuForm extends JFrame {
+    private JLabel mensajeBienvenida, saldoLabel, saldo,
+            tarjetaLabel, tarjeta;
 
-    public MenuForm() {
+    private JButton bottonMagico;
+    public MenuForm(General general) {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
         Color fondoMenu = new Color(6, 65, 138);
         Color fontColor = new Color(246, 243, 243);
@@ -18,6 +28,56 @@ public class MenuForm extends JFrame {
         super.getContentPane().setBackground(fondoMenu);
         super.setLayout(null);
 
+        mensajeBienvenida = new JLabel("¡Bienvenido de vuelta, " +
+                general.getName()+"! ");
+        mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 25));
+        mensajeBienvenida.setForeground(new Color(222, 219, 219));
+        mensajeBienvenida.setBounds(30, 5, 400, 60);
+
+        saldo = new JLabel("Saldo: ");
+        saldoLabel = new JLabel(String.valueOf(general.getCard().getBalance()));
+        saldo.setFont(font);
+        saldoLabel.setFont(font);
+        saldo.setBounds(30, 60, 100, 30);
+        saldoLabel.setBounds(100, 60, 100, 30);
+        saldo.setForeground(fontColor);
+        saldoLabel.setForeground(fontColor);
+
+        tarjeta = new JLabel("Tarjeta: ");
+        tarjetaLabel = new JLabel(general.getClass().getSimpleName());
+        tarjeta.setFont(font);
+        tarjetaLabel.setFont(font);
+        tarjeta.setBounds(30, 90, 100, 30);
+        tarjetaLabel.setBounds(120, 90, 220, 30);
+        tarjeta.setForeground(fontColor);
+        tarjetaLabel.setForeground(fontColor);
+
+        bottonMagico = new JButton("Botón mágico");
+        bottonMagico.setFont(font);
+        bottonMagico.setBounds(30, 130, 150, 30);
+        bottonMagico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    General usuario = getUser(general.getEmail(), general.getPassword());
+                    usuario.getCard().addBalance(10);
+                    saveUser(usuario);
+                    saldoLabel.setText(String.valueOf(general.getCard().getBalance()));
+
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+
+
+
+        super.add(mensajeBienvenida);
+        super.add(saldo);
+        super.add(saldoLabel);
+        super.add(tarjeta);
+        super.add(tarjetaLabel);
+        super.add(bottonMagico);
         super.setVisible(true);
 
 

@@ -1,3 +1,7 @@
 general Lorena Kim lorenakim@gmail.com lore123 0.0
 general lore kim lorek@gmail.ci 123 0.0
 general pepito perez pepito@gmail.com 123 0.0
+general david valencia davidv@gmail.com 123 0.0
+general arle cito arle@gmail.com 123 0.0
+general roberto garcia robertog@gmail.com 123 0.0
+estudiante admin admin admin admin 0.0

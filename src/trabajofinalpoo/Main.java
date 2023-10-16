@@ -16,10 +16,6 @@ public class Main {
         initFees();
         loadUsers();
         new LoginForm();
-       users.forEach((s, general) -> {
-           System.out.println(s+ " " + general);
-        });
-
 
     }
     private static void initFees(){
@@ -47,7 +43,6 @@ public class Main {
                 }
             }
             reader.close();
-            System.out.println(packageName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -61,7 +56,7 @@ public class Main {
         } else {
             users.put(general.getEmail(), general);
             String packageName = Main.class.getPackage().getName();
-            String filePath = packageName.replace(".", "/") + "/src/"+packageName+"/users.txt";
+            String filePath = packageName + "/src/"+packageName+"/users.txt";
             File file = new File(filePath);
             try {
                 System.out.println("añadiendo nueva linea");
@@ -78,19 +73,24 @@ public class Main {
         System.out.println("usuario añadido");
     }
 
-    public static void getUser(String correo, String contraseña){
+    public static General getUser(String correo, String contrasena){
         if(users.containsKey(correo)){
             General general = users.get(correo);
-            if(!(general.getPassword().equals(contraseña))){
+            if(!(general.getPassword().equals(contrasena))){
                 throw new RuntimeException("Contraseña incorrecta");
             }
-        } else if (correo.isEmpty() || contraseña.isEmpty()){
+            return general;
+        } else if (correo.isEmpty() || contrasena.isEmpty()){
             throw new RuntimeException("Hay campos sin llenar");
         } else {
             throw new RuntimeException("Usuario no encontrado");
         }
+    }
+
+    public static void saveUser(General general) {
 
     }
+
 
 
 }
