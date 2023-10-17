@@ -1,6 +1,6 @@
 package trabajofinalpoo.users;
 
-public class Estudiante extends General {
+public class Estudiante extends Usuario {
     private double discount;
 
     public Estudiante(String name, String lastName, String email, String password) {
@@ -18,8 +18,9 @@ public class Estudiante extends General {
 
     @Override
     public String toString() {
-        return super.toString()+"\n discount = " + discount;
+        return super.toString() + " discount = " + discount;
     }
+
 }
 
 

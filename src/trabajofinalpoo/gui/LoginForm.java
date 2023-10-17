@@ -1,13 +1,12 @@
 package trabajofinalpoo.gui;
 
-import trabajofinalpoo.users.General;
+import trabajofinalpoo.UserManager;
+import trabajofinalpoo.users.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static trabajofinalpoo.Main.getUser;
 
 public class LoginForm extends JFrame {
     private JLabel titulo, emailLabel, passwordLabel, forgotPasswordLabel;
@@ -47,7 +46,7 @@ public class LoginForm extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        General user = getUser(emailField.getText(), passwordField.getText());
+                        Usuario user = UserManager.getUser(emailField.getText(), passwordField.getText());
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
                         LoginForm.super.dispose();
                         new MenuForm(user);

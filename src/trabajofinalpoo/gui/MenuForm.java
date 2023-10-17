@@ -1,21 +1,19 @@
 package trabajofinalpoo.gui;
 
-import trabajofinalpoo.users.General;
+import trabajofinalpoo.UserManager;
+import trabajofinalpoo.users.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static trabajofinalpoo.Main.getUser;
-import static trabajofinalpoo.Main.saveUser;
-
 public class MenuForm extends JFrame {
     private JLabel mensajeBienvenida, saldoLabel, saldo,
             tarjetaLabel, tarjeta;
 
     private JButton bottonMagico;
-    public MenuForm(General general) {
+    public MenuForm(Usuario usuario) {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
         Color fondoMenu = new Color(6, 65, 138);
         Color fontColor = new Color(246, 243, 243);
@@ -29,13 +27,13 @@ public class MenuForm extends JFrame {
         super.setLayout(null);
 
         mensajeBienvenida = new JLabel("¡Bienvenido de vuelta, " +
-                general.getName()+"! ");
+                usuario.getName()+"! ");
         mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 25));
         mensajeBienvenida.setForeground(new Color(222, 219, 219));
         mensajeBienvenida.setBounds(30, 5, 400, 60);
 
         saldo = new JLabel("Saldo: ");
-        saldoLabel = new JLabel(String.valueOf(general.getCard().getBalance()));
+        saldoLabel = new JLabel(String.valueOf(usuario.getCard().getBalance()));
         saldo.setFont(font);
         saldoLabel.setFont(font);
         saldo.setBounds(30, 60, 100, 30);
@@ -44,7 +42,7 @@ public class MenuForm extends JFrame {
         saldoLabel.setForeground(fontColor);
 
         tarjeta = new JLabel("Tarjeta: ");
-        tarjetaLabel = new JLabel(general.getClass().getSimpleName());
+        tarjetaLabel = new JLabel(usuario.getClass().getSimpleName());
         tarjeta.setFont(font);
         tarjetaLabel.setFont(font);
         tarjeta.setBounds(30, 90, 100, 30);
@@ -59,10 +57,9 @@ public class MenuForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    General usuario = getUser(general.getEmail(), general.getPassword());
-                    usuario.getCard().addBalance(10);
-                    saveUser(usuario);
-                    saldoLabel.setText(String.valueOf(general.getCard().getBalance()));
+                    Usuario persona = UserManager.getUser(usuario.getEmail(), usuario.getPassword());
+                    persona.getCard().addBalance(10);
+                    saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
 
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
