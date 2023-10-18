@@ -1,10 +1,10 @@
 package trabajofinalpoo.users;
 
-import trabajofinalpoo.Card;
+import trabajofinalpoo.Tarjeta;
 
 public abstract class Usuario {
     private String name, lastname, email, password;
-    private Card card;
+    private Tarjeta tarjeta;
     public Usuario(String name, String lastname, String email, String password) {
             this.name = name;
             this.lastname = lastname;
@@ -13,16 +13,16 @@ public abstract class Usuario {
         }
     public Usuario(String name, String lastname, String email, String password, double balance) {
       this(name, lastname, email, password);
-        this.card = new Card(balance);
+        this.tarjeta = new Tarjeta(balance);
     }
 
     @Override
     public String toString() {
-        return  "name = '" + name + '\'' +
-                ", lastname = '" + lastname + '\'' +
-                ", email = '" + email + '\'' +
-                ", password = '" + password + '\'' +
-                ", card = " + card.getBalance();
+        return  "Nombre: '" + name + '\'' +
+                ", Apellido: '" + lastname + '\'' +
+                ", Correo: '" + email + '\'' +
+                ", Contraseña: '" + password + '\'' +
+                ", Saldo: " + tarjeta.getBalance();
     }
 
     public String getName() {
@@ -57,11 +57,11 @@ public abstract class Usuario {
         this.password = password;
     }
 
-    public Card getCard() {
-        return card;
+    public Tarjeta getCard() {
+        return tarjeta;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCard(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
     }
 }

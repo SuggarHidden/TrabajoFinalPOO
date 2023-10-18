@@ -36,7 +36,7 @@ public class RegisterForm extends JFrame {
                             !correoField.getText().isEmpty() && !contrasenaField.getText().isEmpty() &&
                             !confirmarContrasenaField.getText().isEmpty()) {
                         if (contrasenaField.getText().equals(confirmarContrasenaField.getText())) {
-                            UserManager.addUser(new General(nombreField.getText(), apellidoField.getText(), correoField.getText(), contrasenaField.getText(), 0));
+                            UserManager.updateUser(new General(nombreField.getText(), apellidoField.getText(), correoField.getText(), contrasenaField.getText(), 0));
                             JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
                             RegisterForm.super.dispose();
                             new LoginForm();

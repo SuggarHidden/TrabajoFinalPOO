@@ -1,6 +1,6 @@
 package trabajofinalpoo.users;
 
-public class Estudiante extends Usuario {
+public class Estudiante extends General {
     private double discount;
 
     public Estudiante(String name, String lastName, String email, String password) {

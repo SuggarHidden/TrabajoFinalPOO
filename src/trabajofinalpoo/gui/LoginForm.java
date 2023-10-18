@@ -49,7 +49,7 @@ public class LoginForm extends JFrame {
                         Usuario user = UserManager.getUser(emailField.getText(), passwordField.getText());
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
                         LoginForm.super.dispose();
-                        new MenuForm(user);
+                        new MenuForm(user).setLocation(LoginForm.super.getLocation());
 
                     } catch (RuntimeException ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -60,7 +60,7 @@ public class LoginForm extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LoginForm.super.dispose();
-                    new RegisterForm();
+                    new RegisterForm().setLocation(LoginForm.super.getLocation());
                 }
             });
             emailField.setFont(font);
