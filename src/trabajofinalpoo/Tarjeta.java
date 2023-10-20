@@ -44,6 +44,7 @@ public class Tarjeta implements Pagos {
 
     public void addBalance(double balance) {
         if (getBalance() + balance > 100.0) throw new RuntimeException("El limite maximo de saldo en una tarjeta es de S/100");
+        System.out.println("aqui estoy");
         this.balance = getBalance() + balance;
     }
 }

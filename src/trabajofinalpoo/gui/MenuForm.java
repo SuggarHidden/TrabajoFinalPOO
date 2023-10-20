@@ -1,6 +1,7 @@
 package trabajofinalpoo.gui;
 
 import trabajofinalpoo.UserManager;
+import trabajofinalpoo.users.General;
 import trabajofinalpoo.users.Usuario;
 
 import javax.swing.*;
@@ -57,9 +58,10 @@ public class MenuForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Usuario persona = UserManager.getUser(usuario.getEmail(), usuario.getPassword());
+                    General persona = UserManager.getUser(usuario.getEmail(), usuario.getPassword());
                     persona.getCard().addBalance(10);
                     saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                    UserManager.updateUser(persona);
 
                 } catch (RuntimeException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
