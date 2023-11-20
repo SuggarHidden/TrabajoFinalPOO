@@ -1,6 +1,6 @@
 general a a robertog@gmail.com asd 0.0
-estudiante admin admin admin admin 100.0
-general asd asd lorenakim@gmail.com asd 0.0
+estudiante admin admin admin admin 63.41111111099998
+general asd asd lorenakim@gmail.com asd 11.0
 general pepito juarez pepito@gmail.com 123 100.0
-estudiante arle cito arle@gmail.com 123 0.0
+estudiante arle cito arle@gmail.com 123 0.7999999999999998
 general david valencia davidv@gmail.com 123 0.0

@@ -1,24 +1,28 @@
 package trabajofinalpoo.gui;
 
-import trabajofinalpoo.users.Usuario;
+import trabajofinalpoo.enums.Corredor;
+import trabajofinalpoo.users.General;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static trabajofinalpoo.UserManager.updateUser;
+
 public class MenuForm extends JFrame {
     private JLabel mensajeBienvenida, saldoLabel, saldo,
             tarjetaLabel, tarjeta;
-    private JPanel panel, panelRecarga;
+    private JPanel panel, panelRecarga, panelBus, panelViaje, panelHistorial;
     private Color botonesColor;
     private Font font;
     private Color fontColor, fondoMenu;
-
+    private General usuario;
     private JButton buttonRecargar, buttonViaje, buttonHistorial, buttonCerrarSesion;
-    public MenuForm(Usuario usuario) {
+    private ImageIcon busIcon;
+    public MenuForm(General usuario) {
+        this.usuario = usuario;
         build();
-
         mensajeBienvenida = new JLabel("¡Bienvenido de vuelta, " +
                 usuario.getName()+"! ");
         mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 25));
@@ -123,6 +127,27 @@ public class MenuForm extends JFrame {
         fondoMenu = new Color(7, 51, 105);
         fontColor = new Color(246, 243, 243);
         font = new Font("Monospaced", Font.PLAIN, 16);
+        Color panelBackGround = new Color(6, 65, 138);
+
+        ImageIcon iconPath5 = new ImageIcon(getClass().getResource("bus.png"));
+        Image iconScaled5 = iconPath5.getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT);
+        busIcon = new ImageIcon(iconScaled5);
+
+        panelRecarga = new JPanel();
+        panelRecarga.setBackground(panelBackGround);
+        panelRecarga.setBounds(0, 190, 500, 300);
+        panelRecarga.setLayout(null);
+
+        panelBus = new JPanel();
+        panelBus.setBackground(panelBackGround);
+        panelBus.setLayout(null);
+        panelBus.setBounds(0, 190, 500, 400);
+
+        panelHistorial = new JPanel();
+        panelHistorial.setBackground(panelBackGround);
+        panelHistorial.setBounds(0, 190, 500, 400);
+        panelHistorial.setLayout(null);
+
         super.setTitle("Nombre de la app");
         super.setSize(500, 720);
         super.setResizable(false);
@@ -138,11 +163,6 @@ public class MenuForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panel.setVisible(false);
-                panelRecarga = new JPanel();
-                panelRecarga.setBackground(new Color(6, 65, 138));
-                panelRecarga.setBounds(0, 190, 500, 300);
-                panelRecarga.setLayout(null);
-
                 JLabel labelRecarga = new JLabel("Monto a recargar:");
                 labelRecarga.setFont(font);
                 labelRecarga.setBounds(30, 10, 250, 60);
@@ -179,12 +199,129 @@ public class MenuForm extends JFrame {
                 panelRecarga.add(buttonCancelar);
                 MenuForm.super.add(panelRecarga);
                 panelRecarga.setVisible(true);
+
+                buttonCancelar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        panelRecarga.setVisible(false);
+                        panel.setVisible(true);
+                    }
+                });
+
+                buttonRecargar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            double cantidad = Double.parseDouble(montoRecarga.getText());
+                            usuario.getCard().addBalance(cantidad);
+                            updateUser(usuario);
+                            JOptionPane.showMessageDialog(null, "Saldo actualizado exitosamente.");
+                            saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                            panelRecarga.setVisible(false);
+                            panel.setVisible(true);
+
+                        } catch (RuntimeException re) {
+                            JOptionPane.showMessageDialog(null, re.getMessage());
+                            System.out.println(re.getMessage());
+                        }
+
+
+                    }
+                });
+
             }
         });
 
         buttonViaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
+
+                JButton busAzul = new JButton();
+                busAzul.setName("AZUL");
+                busAzul.setBackground(new Color(22, 32, 215));
+                busAzul.setBounds(0, 0, 250, 150);
+                busAzul.setIcon(busIcon);
+                busAzul.setFocusable(false);
+                busAzul.setBorderPainted(false);
+
+                JButton busRojo = new JButton();
+                busRojo.setName("ROJO");
+                busRojo.setBackground(new Color(239, 16, 16));
+                busRojo.setBounds(250,0, 250,150);
+                busRojo.setIcon(busIcon);
+                busRojo.setFocusable(false);
+                busRojo.setBorderPainted(false);
+
+                JButton busAmarillo = new JButton();
+                busAmarillo.setName("AMARILLO");
+                busAmarillo.setBackground(new Color(224, 250, 14));
+                busAmarillo.setBounds(0,150, 250,150);
+                busAmarillo.setIcon(busIcon);
+                busAmarillo.setFocusable(false);
+                busAmarillo.setBorderPainted(false);
+
+                JButton busMorado = new JButton();
+                busMorado.setName("MORADO");
+                busMorado.setBackground(new Color(122, 0, 227));
+                busMorado.setBounds(250,150, 250,150);
+                busMorado.setIcon(busIcon);
+                busMorado.setFocusable(false);
+                busMorado.setBorderPainted(false);
+
+
+                JButton cancelarBoton = new JButton("Cancelar");
+                cancelarBoton.setFont(font);
+                cancelarBoton.setHorizontalTextPosition(JButton.RIGHT);
+                cancelarBoton.setHorizontalAlignment(JButton.LEFT);
+                cancelarBoton.setFocusable(false);
+                cancelarBoton.setBackground(botonesColor);
+                cancelarBoton.setBorderPainted(false);
+                cancelarBoton.setForeground(Color.WHITE);
+                cancelarBoton.setBounds(0, 320, 250, 60);
+                cancelarBoton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        panelBus.setVisible(false);
+                        panel.setVisible(true);
+                    }
+                });
+
+                ActionListener boton = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        try {
+                            JButton botonClickeado = (JButton) e.getSource();
+                            String nombreBoton = botonClickeado.getName();
+                            System.out.println(nombreBoton);
+                            usuario.getCard().hacerPago(Corredor.valueOf(nombreBoton));
+                            updateUser(usuario);
+                            saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                            JOptionPane.showMessageDialog(null, "Viaje pagado exitosamente.");
+                            panelBus.setVisible(false);
+                            panel.setVisible(true);
+                        } catch (RuntimeException re) {
+                            JOptionPane.showMessageDialog(null, re.getMessage());
+                        }
+                    }
+                };
+
+                busAzul.addActionListener(boton);
+                busMorado.addActionListener(boton);
+                busAmarillo.addActionListener(boton);
+                busRojo.addActionListener(boton);
+
+
+                panelBus.add(busAzul);
+                panelBus.add(busRojo);
+                panelBus.add(busAmarillo);
+                panelBus.add(busMorado);
+                panelBus.add(cancelarBoton);
+                MenuForm.super.add(panelBus);
+                panelBus.setVisible(true);
+
+
 
             }
         });
@@ -192,7 +329,57 @@ public class MenuForm extends JFrame {
         buttonHistorial.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
+                DefaultListModel<Object> modelo = new DefaultListModel<>();
+                JList<Object> list = new JList<>(modelo);
+                list.setBounds(0, 0, 500, 300);
+                list.setFont(font);
+                list.setBackground(new Color(131, 186, 255));
+                list.setForeground(Color.WHITE);
 
+                // simulación
+                modelo.add(0, "Viaje: Azul");
+                modelo.add(1, "Viaje: Morado");
+                modelo.add(2, "Viaje: Amarillo");
+                modelo.add(3, "Viaje: Rojo");
+                modelo.add(4, "Viaje: Azul");
+
+                /*
+                int n = 0;
+                usuario.getHistorial().forEach((bus, costo, fecha) -> {
+                    modelo.add(n, bus + " " + costo + " " + fecha);
+                    n++;
+                 */
+
+                JScrollPane scrollLista = new JScrollPane(list);
+                scrollLista.setBounds(0, 0, 500, 300);
+                scrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                scrollLista.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+                JButton buttonRetroceder = new JButton("Retroceder");
+                buttonRetroceder.setFont(font);
+                buttonRetroceder.setBounds(0, 320, 250, 60);
+                buttonRetroceder.setHorizontalTextPosition(JButton.RIGHT);
+                buttonRetroceder.setHorizontalAlignment(JButton.LEFT);
+                buttonRetroceder.setFocusable(false);
+                buttonRetroceder.setBackground(botonesColor);
+                buttonRetroceder.setBorderPainted(false);
+                buttonRetroceder.setForeground(Color.WHITE);
+
+                buttonRetroceder.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        panelHistorial.setVisible(false);
+                        panel.setVisible(true);
+                    }
+                });
+
+                panelHistorial.add(list);
+                panelHistorial.add(scrollLista);
+                panelHistorial.add(buttonRetroceder);
+                MenuForm.super.add(panelHistorial);
+                panelHistorial.setVisible(true);
             }
         });
 

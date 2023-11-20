@@ -1,7 +1,7 @@
 package trabajofinalpoo.gui;
 
 import trabajofinalpoo.UserManager;
-import trabajofinalpoo.users.Usuario;
+import trabajofinalpoo.users.General;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class LoginForm extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        Usuario user = UserManager.getUser(emailField.getText(), passwordField.getText());
+                        General user = UserManager.getUser(emailField.getText(), passwordField.getText());
                         JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
                         LoginForm.super.dispose();
                         new MenuForm(user).setLocation(LoginForm.super.getLocation());

@@ -5,6 +5,7 @@ import trabajofinalpoo.Tarjeta;
 public abstract class Usuario {
     private String name, lastname, email, password;
     private Tarjeta tarjeta;
+    // private List <String> historial;
     public Usuario(String name, String lastname, String email, String password) {
             this.name = name;
             this.lastname = lastname;
