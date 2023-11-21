@@ -1,0 +1,5 @@
+general f9f5b2ca-8222-4280-bd76-2c2834ac2618 a a robertog@gmail.com asd 0.0
+general b3f1746a-1f0c-4a2f-8837-6a7c5ee9b7e2 Lorena Kim asd asd 22.8
+estudiante 11467e48-a4c2-4521-bfb0-659eca9173f3 admin admin admin admin 93.11111111099996
+general 08b0fedf-290e-4115-b4fe-962277cd99c3 asd asd lorenakim@gmail.com asd 11.0
+general b2053028-fe00-4943-b88a-72d76332c864 Lorena Kim 123 123 0.0

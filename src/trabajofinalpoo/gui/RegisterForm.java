@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.UUID;
 
 public class RegisterForm extends JFrame {
     private JLabel nombre, apellido, correo, contrasena, confirmarContrasena, titulo;
@@ -36,7 +37,7 @@ public class RegisterForm extends JFrame {
                             !correoField.getText().isEmpty() && !contrasenaField.getText().isEmpty() &&
                             !confirmarContrasenaField.getText().isEmpty()) {
                         if (contrasenaField.getText().equals(confirmarContrasenaField.getText())) {
-                            UserManager.updateUser(new General(nombreField.getText(), apellidoField.getText(), correoField.getText(), contrasenaField.getText(), 0));
+                            UserManager.updateUser(new General(UUID.randomUUID(),nombreField.getText(), apellidoField.getText(), correoField.getText(), contrasenaField.getText(), 0));
                             JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
                             RegisterForm.super.dispose();
                             new LoginForm();

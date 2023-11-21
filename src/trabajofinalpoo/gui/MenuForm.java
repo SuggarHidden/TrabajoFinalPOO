@@ -1,6 +1,7 @@
 package trabajofinalpoo.gui;
 
 import trabajofinalpoo.enums.Corredor;
+import trabajofinalpoo.enums.HistorialActionType;
 import trabajofinalpoo.users.General;
 
 import javax.swing.*;
@@ -214,11 +215,12 @@ public class MenuForm extends JFrame {
                         try {
                             double cantidad = Double.parseDouble(montoRecarga.getText());
                             usuario.getCard().addBalance(cantidad);
-                            updateUser(usuario);
-                            JOptionPane.showMessageDialog(null, "Saldo actualizado exitosamente.");
                             saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                            JOptionPane.showMessageDialog(null, "Saldo actualizado exitosamente.");
+                            usuario.addHistorial(HistorialActionType.DEPOSIT, String.valueOf(cantidad));
                             panelRecarga.setVisible(false);
                             panel.setVisible(true);
+                            updateUser(usuario);
 
                         } catch (RuntimeException re) {
                             JOptionPane.showMessageDialog(null, re.getMessage());
@@ -299,6 +301,7 @@ public class MenuForm extends JFrame {
                             updateUser(usuario);
                             saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
                             JOptionPane.showMessageDialog(null, "Viaje pagado exitosamente.");
+                            usuario.addHistorial(HistorialActionType.WITHDRAW, String.valueOf(Corredor.valueOf(nombreBoton)));
                             panelBus.setVisible(false);
                             panel.setVisible(true);
                         } catch (RuntimeException re) {
@@ -337,19 +340,9 @@ public class MenuForm extends JFrame {
                 list.setBackground(new Color(131, 186, 255));
                 list.setForeground(Color.WHITE);
 
-                // simulación
-                modelo.add(0, "Viaje: Azul");
-                modelo.add(1, "Viaje: Morado");
-                modelo.add(2, "Viaje: Amarillo");
-                modelo.add(3, "Viaje: Rojo");
-                modelo.add(4, "Viaje: Azul");
-
-                /*
-                int n = 0;
-                usuario.getHistorial().forEach((bus, costo, fecha) -> {
-                    modelo.add(n, bus + " " + costo + " " + fecha);
-                    n++;
-                 */
+                for (String s : usuario.getHistorial()) {
+                    modelo.addElement(s);
+                }
 
                 JScrollPane scrollLista = new JScrollPane(list);
                 scrollLista.setBounds(0, 0, 500, 300);

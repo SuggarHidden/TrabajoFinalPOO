@@ -6,6 +6,7 @@ import trabajofinalpoo.users.General;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class UserManager {
     private static HashMap<Corredor, Double> fees = new HashMap<>(4);
@@ -24,16 +25,24 @@ public class UserManager {
     public static void cargarUsuarios() {
         try {
             String packageName = UserManager.class.getPackageName();
-            File file = new File(packageName + "/src/" + packageName + "/users.txt");
+            File file = new File("src/trabajofinalpoo", "users.txt");
+            System.out.println(file);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] info = line.split(" ");
                 if(info[0].equals("estudiante") ){
-                    users.put(info[3], new Estudiante(info[1], info[2], info[3], info[4], Double.valueOf(info[5])));
+                    Estudiante sdt = new Estudiante(UUID.fromString(info[1]), info[2], info[3], info[4], info[5], Double.valueOf(info[6]));
+                    String historialFile = "src/trabajofinalpoo/data/"+sdt.getId()+".txt";
+                    sdt.deserializar(historialFile);
+                    users.put(info[4],sdt );
+                    System.out.println(sdt.getId() + "adsa");
                 }
                 if(info[0].equals("general") ){
-                    users.put(info[3], new General(info[1], info[2], info[3], info[4], Double.valueOf(info[5])));
+                    General gnrl = new General(UUID.fromString(info[1]), info[2], info[3], info[4], info[5], Double.valueOf(info[6]));
+                    String historialFile = packageName + "/src/" + packageName + "data/"+gnrl.getId()+".txt";
+                    gnrl.deserializar(historialFile);
+                    users.put(info[4],gnrl);
                 }
             }
             reader.close();
@@ -47,18 +56,21 @@ public class UserManager {
     public static void updateUser(General general){
         boolean appendToFile = !users.containsKey(general.getEmail());
         users.put(general.getEmail(), general);
-        String packageName = UserManager.class.getPackage().getName();
-        String filePath = packageName + "/src/"+packageName+"/users.txt";
-        File file = new File(filePath);
+        File file = new File("src/trabajofinalpoo", "users.txt");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/trabajofinalpoo/data/"+general.getId()+".txt"))) {
+            oos.writeObject(general.getHistorial());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, appendToFile));
             if (appendToFile){
                 System.out.println("Añadiendo nuevo usuario al archivo.");
-                String userInfo = "general " + general.getName() + " " + general.getLastname() + " " +
+                String userInfo = "general " +  general.getId() + " " + general.getName() + " " + general.getLastname() + " " +
                         general.getEmail() + " "
                         + general.getPassword() + " " + general.getCard().getBalance();
                 if (general instanceof Estudiante)
-                    userInfo = "estudiante " + general.getName() + " " + general.getLastname() + " " +
+                    userInfo = "estudiante " +general.getId() + " " + general.getName() + " " + general.getLastname() + " " +
                             general.getEmail() + " " + general.getPassword() + " " + general.getCard()
                             .getBalance();
                 writer.write(userInfo);
@@ -68,10 +80,10 @@ public class UserManager {
                 System.out.println("Guardando todos los usuarios a la lista.");
                 users.forEach((s, g) -> {
                     try {
-                        String userInfo = "general " + g.getName() + " " + g.getLastname() + " " + g.getEmail() + " " +
+                        String userInfo = "general " + g.getId() + " " + g.getName() + " " + g.getLastname() + " " + g.getEmail() + " " +
                                 g.getPassword() + " " + g.getCard().getBalance();
                         if(g instanceof Estudiante){
-                            userInfo = "estudiante " + g.getName() + " " + g.getLastname() + " " + g.getEmail() + " "
+                            userInfo = "estudiante " + g.getId() + " " +  g.getName() + " " + g.getLastname() + " " + g.getEmail() + " "
                                     + g.getPassword() + " " + g.getCard().getBalance();
                         }
                         writer.write(userInfo);
