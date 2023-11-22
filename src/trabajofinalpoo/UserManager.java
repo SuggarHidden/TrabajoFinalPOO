@@ -5,12 +5,18 @@ import trabajofinalpoo.users.Estudiante;
 import trabajofinalpoo.users.General;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserManager {
     private static HashMap<Corredor, Double> fees = new HashMap<>(4);
     private static HashMap<String, General> users = new HashMap<>();
+
+    private static final List<String> universidadesPermitidas = Arrays.asList("utp.edu.pe", "upc.edu.pe", "utec.edu.pe");
 
     static void setTarifas(){
         fees.put(Corredor.AZUL, 2.20);
@@ -26,22 +32,23 @@ public class UserManager {
         try {
             String packageName = UserManager.class.getPackageName();
             File file = new File("src/trabajofinalpoo", "users.txt");
-            System.out.println(file);
+            // Crear el archivo si no existe
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] info = line.split(" ");
                 if(info[0].equals("estudiante") ){
                     Estudiante sdt = new Estudiante(UUID.fromString(info[1]), info[2], info[3], info[4], info[5], Double.valueOf(info[6]));
-                    String historialFile = "src/trabajofinalpoo/data/"+sdt.getId()+".txt";
-                    sdt.deserializar(historialFile);
+                    sdt.deserializar( "src/trabajofinalpoo/data/"+sdt.getId()+".txt");
                     users.put(info[4],sdt );
-                    System.out.println(sdt.getId() + "adsa");
                 }
                 if(info[0].equals("general") ){
                     General gnrl = new General(UUID.fromString(info[1]), info[2], info[3], info[4], info[5], Double.valueOf(info[6]));
-                    String historialFile = packageName + "/src/" + packageName + "data/"+gnrl.getId()+".txt";
-                    gnrl.deserializar(historialFile);
+                    gnrl.deserializar("src/trabajofinalpoo/data/"+gnrl.getId()+".txt");
                     users.put(info[4],gnrl);
                 }
             }
@@ -62,6 +69,7 @@ public class UserManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(general instanceof Estudiante);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, appendToFile));
             if (appendToFile){
@@ -97,6 +105,20 @@ public class UserManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean registerUser(String nombre, String apellido, String correo, String pass, String confirmPass){
+        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) throw new RuntimeException("Hay campos sin llenar");
+        if (!correo.contains("@")|| correo.indexOf('@') == correo.length() - 1) throw new RuntimeException("Por favor ingresa un correo valido!");
+        if (users.containsKey(correo)) throw new RuntimeException("Este usuario con ese correo ya existe!");
+        if (!pass.equals(confirmPass))  throw new RuntimeException("Las contraseñas no coinciden.");
+        String dominioUni = correo.split("@")[1];
+        if (universidadesPermitidas.contains(dominioUni)){
+            UserManager.updateUser(new Estudiante(UUID.randomUUID(), nombre, apellido, correo, pass, 0));
+            return true;
+        }
+        UserManager.updateUser(new General(UUID.randomUUID(), nombre, apellido, correo, pass, 0));
+        return true;
     }
 
     public static General getUser(String correo, String contrasena){

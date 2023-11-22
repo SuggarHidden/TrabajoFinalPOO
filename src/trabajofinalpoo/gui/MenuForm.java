@@ -31,7 +31,7 @@ public class MenuForm extends JFrame {
         mensajeBienvenida.setBounds(30, 5, 400, 60);
 
         saldo = new JLabel("Saldo: ");
-        saldoLabel = new JLabel(String.valueOf(usuario.getCard().getBalance()));
+        saldoLabel = new JLabel(String.format("%.2f", usuario.getCard().getBalance()));
         saldo.setFont(font);
         saldoLabel.setFont(font);
         saldo.setBounds(30, 60, 100, 30);
@@ -215,7 +215,7 @@ public class MenuForm extends JFrame {
                         try {
                             double cantidad = Double.parseDouble(montoRecarga.getText());
                             usuario.getCard().addBalance(cantidad);
-                            saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                            saldoLabel.setText(String.format("%.2f", usuario.getCard().getBalance()));
                             JOptionPane.showMessageDialog(null, "Saldo actualizado exitosamente.");
                             usuario.addHistorial(HistorialActionType.DEPOSIT, String.valueOf(cantidad));
                             panelRecarga.setVisible(false);
@@ -296,10 +296,9 @@ public class MenuForm extends JFrame {
                         try {
                             JButton botonClickeado = (JButton) e.getSource();
                             String nombreBoton = botonClickeado.getName();
-                            System.out.println(nombreBoton);
                             usuario.getCard().hacerPago(Corredor.valueOf(nombreBoton));
                             updateUser(usuario);
-                            saldoLabel.setText(String.valueOf(usuario.getCard().getBalance()));
+                            saldoLabel.setText(String.format("%.2f", usuario.getCard().getBalance()));
                             JOptionPane.showMessageDialog(null, "Viaje pagado exitosamente.");
                             usuario.addHistorial(HistorialActionType.WITHDRAW, String.valueOf(Corredor.valueOf(nombreBoton)));
                             panelBus.setVisible(false);
@@ -368,6 +367,7 @@ public class MenuForm extends JFrame {
                     }
                 });
 
+                panelHistorial.removeAll();
                 panelHistorial.add(list);
                 panelHistorial.add(scrollLista);
                 panelHistorial.add(buttonRetroceder);
