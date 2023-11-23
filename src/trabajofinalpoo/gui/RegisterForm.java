@@ -1,13 +1,13 @@
 package trabajofinalpoo.gui;
 
+import trabajofinalpoo.UserManager;
 import trabajofinalpoo.users.General;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static trabajofinalpoo.Main.addUser;
+import java.util.UUID;
 
 public class RegisterForm extends JFrame {
     private JLabel nombre, apellido, correo, contrasena, confirmarContrasena, titulo;
@@ -33,20 +33,10 @@ public class RegisterForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (!nombreField.getText().isEmpty() && !apellidoField.getText().isEmpty() &&
-                            !correoField.getText().isEmpty() && !contrasenaField.getText().isEmpty() &&
-                            !confirmarContrasenaField.getText().isEmpty()) {
-                        if (contrasenaField.getText().equals(confirmarContrasenaField.getText())) {
-                            addUser(new General(nombreField.getText(), apellidoField.getText(), correoField.getText(), contrasenaField.getText(), 0));
-                            JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
-                            RegisterForm.super.dispose();
-                            new LoginForm();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden)");
-                        }
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "Campos sin llenar");
+                    if (UserManager.registerUser(nombreField.getText(), apellidoField.getText(),correoField.getText(), contrasenaField.getText(), confirmarContrasenaField.getText())){
+                        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+                        RegisterForm.super.dispose();
+                        new LoginForm();
                     }
                 }
                 catch (RuntimeException ex) {

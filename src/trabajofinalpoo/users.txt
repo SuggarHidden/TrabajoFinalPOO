@@ -1,3 +1,5 @@
-general Lorena Kim lorenakim@gmail.com lore123 0.0
-general lore kim lorek@gmail.ci 123 0.0
-general pepito perez pepito@gmail.com 123 0.0
+general 24b1bced-a756-4461-be80-2c07b4e50009 Lorena Kim 123 123 0.0
+general eb6e6611-765b-4db5-838c-358ed3c8d4d0 test test test test 2.0
+general 71cadea5-3768-4dfc-b823-cac101f8939c test@utp.edu.pe test@utp.edu.pe test2@utp.edu.pe test@utp.edu.pe 0.0
+general 5430fd2a-a5ad-4a45-9fe5-993ad4693779 test@utp.edu.pe test@utp.edu.pe test@utpDOMASDIASDASDASD>ASDAS>DSAD>.edu.pe test@utp.edu.pe 0.0
+estudiante eee5b135-bbe2-4eff-b180-39cf9a3ed1db test23@utp.edu.pe test23@utp.edu.pe test23@utp.edu.pe test23@utp.edu.pe 0.0
