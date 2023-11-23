@@ -64,8 +64,16 @@ public class UserManager {
         boolean appendToFile = !users.containsKey(general.getEmail());
         users.put(general.getEmail(), general);
         File file = new File("src/trabajofinalpoo", "users.txt");
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/trabajofinalpoo/data/"+general.getId()+".txt"))) {
+        String dataPath = "src/trabajofinalpoo/data/";
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataPath+general.getId()+".txt"))) {
             oos.writeObject(general.getHistorial());
+        } catch (FileNotFoundException f){
+            new File(dataPath).mkdirs();
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataPath + general.getId() + ".txt"))) {
+                oos.writeObject(general.getHistorial());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
