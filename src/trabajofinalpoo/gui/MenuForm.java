@@ -28,14 +28,12 @@ public class MenuForm extends JFrame {
     public MenuForm(General usuario) {
         this.usuario = usuario;
         build();
-        ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
-        super.setIconImage(icono.getImage());
-        mensajeBienvenida = new JLabel("¡Bienvenido de vuelta, " +
-                usuario.getName()+"! ");
-        mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 25));
+
+        mensajeBienvenida = new JLabel("<html>Bienvenido de vuelta,<br>" +
+                usuario.getName()+ "</html>");
+        mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 30));
         mensajeBienvenida.setForeground(new Color(222, 219, 219));
-        mensajeBienvenida.setHorizontalAlignment(JLabel.CENTER);
-        mensajeBienvenida.setBounds(30, 10, 400, 60);
+        mensajeBienvenida.setBounds(30, 40, 400, 60);
 
         saldo = new JLabel("Saldo: ");
         saldoLabel = new JLabel(String.format("%.2f", usuario.getCard().getBalance()));
@@ -58,8 +56,9 @@ public class MenuForm extends JFrame {
         botonesColor = new Color(26, 12, 147);
 
         panel = new JPanel();
-        panel.setBackground(new Color(7, 51, 105));
-        panel.setBounds(0, 200, 500, 300);
+        // 7, 51, 105
+        panel.setBackground(new Color( 7, 51, 105));
+        panel.setBounds(0, 200, 500, 450);
         panel.setLayout(null);
 
         ImageIcon iconPath1 = new ImageIcon(getClass().getResource("dinero.png"));
@@ -115,8 +114,6 @@ public class MenuForm extends JFrame {
         buttonCerrarSesion.setBackground(botonesColor);
         buttonCerrarSesion.setBorderPainted(false);
         buttonCerrarSesion.setForeground(Color.WHITE);
-
-
         panel.add(buttonRecargar);
         panel.add(buttonViaje);
         panel.add(buttonHistorial);
@@ -260,7 +257,7 @@ public class MenuForm extends JFrame {
                 JButton busAzul = new JButton();
                 busAzul.setName("AZUL");
                 busAzul.setBackground(new Color(22, 32, 215));
-                busAzul.setBounds(5, 5, 235, 140);
+                busAzul.setBounds(10, 5, 230, 140);
                 busAzul.setText("S/."+String.valueOf(precioAzul));
                 busAzul.setForeground(Color.WHITE);
                 busAzul.setFont(fontBoton);
@@ -278,7 +275,7 @@ public class MenuForm extends JFrame {
                 busRojo.setHorizontalTextPosition(JButton.CENTER);
                 busRojo.setVerticalTextPosition(JButton.BOTTOM);
                 busRojo.setBackground(new Color(239, 16, 16));
-                busRojo.setBounds(250,5, 230,140);
+                busRojo.setBounds(250,5, 225,140);
                 busRojo.setIcon(busIcon);
                 busRojo.setFocusable(false);
                 busRojo.setBorderPainted(false);
@@ -290,8 +287,8 @@ public class MenuForm extends JFrame {
                 busAmarillo.setFont(fontBoton);
                 busAmarillo.setHorizontalTextPosition(JButton.CENTER);
                 busAmarillo.setVerticalTextPosition(JButton.BOTTOM);
-                busAmarillo.setBackground(new Color(224, 250, 14));
-                busAmarillo.setBounds(5,155, 235,145);
+                busAmarillo.setBackground(new Color(0xE8C34A));
+                busAmarillo.setBounds(10,155, 230,145);
                 busAmarillo.setIcon(busIcon);
                 busAmarillo.setFocusable(false);
                 busAmarillo.setBorderPainted(false);
@@ -304,7 +301,7 @@ public class MenuForm extends JFrame {
                 busMorado.setHorizontalTextPosition(JButton.CENTER);
                 busMorado.setVerticalTextPosition(JButton.BOTTOM);
                 busMorado.setBackground(new Color(122, 0, 227));
-                busMorado.setBounds(250,155, 230,145);
+                busMorado.setBounds(250,155, 225,145);
                 busMorado.setIcon(busIcon);
                 busMorado.setFocusable(false);
                 busMorado.setBorderPainted(false);
@@ -318,7 +315,7 @@ public class MenuForm extends JFrame {
                 cancelarBoton.setBackground(botonesColor);
                 cancelarBoton.setBorderPainted(false);
                 cancelarBoton.setForeground(Color.WHITE);
-                cancelarBoton.setBounds(5, 320, 235, 60);
+                cancelarBoton.setBounds(10, 320, 230, 60);
                 cancelarBoton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -374,8 +371,8 @@ public class MenuForm extends JFrame {
                 panel.setVisible(false);
                 DefaultListModel<Object> modelo = new DefaultListModel<>();
                 JList<Object> list = new JList<>(modelo);
-                list.setFont(font);
-                list.setBackground(new Color(131, 186, 255));
+                list.setFont(new Font("Monospaced", Font.PLAIN, 14));
+                list.setBackground(new Color(13, 6, 104));
                 list.setForeground(Color.WHITE);
 
                 for (String s : usuario.getHistorial()) {
@@ -383,14 +380,16 @@ public class MenuForm extends JFrame {
                 }
 
                 JScrollPane scrollLista = new JScrollPane(list);
-                scrollLista.setBounds(5, 0, 475, 300);
+                scrollLista.setBounds(10, 0, 465, 300);
+                scrollLista.setFocusable(false);
+                scrollLista.setBorder(BorderFactory.createEmptyBorder());
                 scrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 scrollLista.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 
                 JButton buttonRetroceder = new JButton("Retroceder");
                 buttonRetroceder.setFont(font);
-                buttonRetroceder.setBounds(5, 320, 235, 60);
+                buttonRetroceder.setBounds(10, 320, 230, 60);
                 buttonRetroceder.setHorizontalTextPosition(JButton.RIGHT);
                 buttonRetroceder.setHorizontalAlignment(JButton.LEFT);
                 buttonRetroceder.setFocusable(false);
