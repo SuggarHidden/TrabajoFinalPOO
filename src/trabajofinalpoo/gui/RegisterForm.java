@@ -17,6 +17,7 @@ public class RegisterForm extends JFrame {
     public RegisterForm () {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
         Color fondoMenu = new Color(6, 65, 138);
+        Color fondoBoton = new Color(0x063775);
         Font font = new Font("Arial", Font.BOLD, 14);
         super.setTitle("Mi atu");
         super.setSize(500, 620);
@@ -28,6 +29,10 @@ public class RegisterForm extends JFrame {
         build();
         registerButton = new JButton("Registrarse");
         registerButton.setFont(font);
+        registerButton.setFocusable(false);
+        registerButton.setBorderPainted(false);
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setBackground(fondoBoton);
         registerButton.setBounds(50, 420, 150, 30);
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -48,6 +53,10 @@ public class RegisterForm extends JFrame {
 
         atrasButton = new JButton("Retroceder");
         atrasButton.setFont(font);
+        atrasButton.setFocusable(false);
+        atrasButton.setBorderPainted(false);
+        atrasButton.setForeground(Color.WHITE);
+        atrasButton.setBackground(fondoBoton);
         atrasButton.setBounds(250, 420, 150, 30);
         atrasButton.addActionListener(new ActionListener() {
             @Override

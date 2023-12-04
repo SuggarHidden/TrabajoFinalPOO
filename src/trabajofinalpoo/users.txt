@@ -3,5 +3,5 @@ general 24b1bced-a756-4461-be80-2c07b4e50009 Lorena Kim 123 123 0.0
 general eb6e6611-765b-4db5-838c-358ed3c8d4d0 test test test test 2.0
 estudiante 71cadea5-3768-4dfc-b823-cac101f8939c Test1 Apellid test2@utp.edu.pe password 15.849999999999994
 general e69db807-e44a-41bf-a340-eed2ddbb7246 1234 1234 1234 1234 7.8
-general eff88393-c613-4421-9563-9e99c24962dd admin admin admin admin 71.3
+general eff88393-c613-4421-9563-9e99c24962dd admin admin admin admin 81.3
 estudiante 72508f6d-548a-40b3-9772-b574096b8fe3 Lorena Kim lorenakim@utp.edu.pe 123 17.8

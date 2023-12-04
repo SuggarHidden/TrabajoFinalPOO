@@ -63,6 +63,7 @@ public class LoginForm extends JFrame {
                     new RegisterForm().setLocation(LoginForm.super.getLocation());
                 }
             });
+
             emailField.setFont(font);
             passwordField.setFont(font);
 
@@ -96,6 +97,17 @@ public class LoginForm extends JFrame {
         passwordLabel.setForeground(fontColor);
         forgotPasswordLabel = new JLabel("¿Olvidaste tu contraseña?");
         forgotPasswordLabel.setForeground(fontColor);
+        loginButton.setFocusable(false);
+        loginButton.setBorderPainted(false);
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setBackground(new Color(0x063775));
+
+        registerButton.setFocusable(false);
+        registerButton.setBorderPainted(false);
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setBackground(new Color(0x063775));
+
+
         emailLabel.setBounds(x/6, 230, 300, 20);
         emailField.setBounds(x/6, 250, 300, 40);
         passwordLabel.setBounds(x/6, 300, 300, 20);

@@ -26,18 +26,21 @@ public class MenuForm extends JFrame {
     public MenuForm(General usuario) {
         this.usuario = usuario;
         build();
+        ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
+        super.setIconImage(icono.getImage());
         mensajeBienvenida = new JLabel("¡Bienvenido de vuelta, " +
                 usuario.getName()+"! ");
         mensajeBienvenida.setFont(new Font("Arial", Font.BOLD, 25));
         mensajeBienvenida.setForeground(new Color(222, 219, 219));
-        mensajeBienvenida.setBounds(30, 5, 400, 60);
+        mensajeBienvenida.setHorizontalAlignment(JLabel.CENTER);
+        mensajeBienvenida.setBounds(30, 10, 400, 60);
 
         saldo = new JLabel("Saldo: ");
         saldoLabel = new JLabel(String.format("%.2f", usuario.getCard().getBalance()));
         saldo.setFont(font);
         saldoLabel.setFont(font);
-        saldo.setBounds(30, 60, 100, 30);
-        saldoLabel.setBounds(100, 60, 100, 30);
+        saldo.setBounds(30, 130, 100, 30);
+        saldoLabel.setBounds(100, 130, 100, 30);
         saldo.setForeground(fontColor);
         saldoLabel.setForeground(fontColor);
 
@@ -45,8 +48,8 @@ public class MenuForm extends JFrame {
         tarjetaLabel = new JLabel(usuario.getClass().getSimpleName());
         tarjeta.setFont(font);
         tarjetaLabel.setFont(font);
-        tarjeta.setBounds(30, 90, 100, 30);
-        tarjetaLabel.setBounds(120, 90, 220, 30);
+        tarjeta.setBounds(30, 160, 100, 30);
+        tarjetaLabel.setBounds(120, 160, 220, 30);
         tarjeta.setForeground(fontColor);
         tarjetaLabel.setForeground(fontColor);
 
@@ -54,7 +57,7 @@ public class MenuForm extends JFrame {
 
         panel = new JPanel();
         panel.setBackground(new Color(7, 51, 105));
-        panel.setBounds(0, 190, 500, 300);
+        panel.setBounds(0, 200, 500, 300);
         panel.setLayout(null);
 
         ImageIcon iconPath1 = new ImageIcon(getClass().getResource("dinero.png"));
@@ -138,17 +141,17 @@ public class MenuForm extends JFrame {
 
         panelRecarga = new JPanel();
         panelRecarga.setBackground(panelBackGround);
-        panelRecarga.setBounds(0, 190, 500, 300);
+        panelRecarga.setBounds(0, 200, 500, 300);
         panelRecarga.setLayout(null);
 
         panelBus = new JPanel();
         panelBus.setBackground(panelBackGround);
+        panelBus.setBounds(0, 200, 500, 400);
         panelBus.setLayout(null);
-        panelBus.setBounds(0, 190, 500, 400);
 
         panelHistorial = new JPanel();
         panelHistorial.setBackground(panelBackGround);
-        panelHistorial.setBounds(0, 190, 500, 400);
+        panelHistorial.setBounds(0, 200, 500, 400);
         panelHistorial.setLayout(null);
 
         super.setTitle("Mi atu");
@@ -239,6 +242,7 @@ public class MenuForm extends JFrame {
         buttonViaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel.setVisible(false);
                 double precioAzul = getTarifas(Corredor.AZUL);
                 double precioMorado = getTarifas(Corredor.MORADO);
                 double precioAmarillo = getTarifas(Corredor.AMARILLO);
@@ -249,9 +253,8 @@ public class MenuForm extends JFrame {
                     precioAmarillo = ((Estudiante) usuario).getDiscount(Corredor.AMARILLO);
                     precioRojo = ((Estudiante) usuario).getDiscount(Corredor.ROJO);
                 }
-
-                panel.setVisible(false);
                 Font fontBoton = new Font("Monospaced", Font.PLAIN, 18);
+
                 JButton busAzul = new JButton();
                 busAzul.setName("AZUL");
                 busAzul.setBackground(new Color(22, 32, 215));
@@ -351,16 +354,13 @@ public class MenuForm extends JFrame {
                 busMorado.addActionListener(boton);
                 busAmarillo.addActionListener(boton);
                 busRojo.addActionListener(boton);
-
+                panelBus.add(cancelarBoton);
                 panelBus.add(busAzul);
                 panelBus.add(busRojo);
                 panelBus.add(busAmarillo);
                 panelBus.add(busMorado);
-                panelBus.add(cancelarBoton);
-                MenuForm.super.add(panelBus);
                 panelBus.setVisible(true);
-
-
+                MenuForm.super.revalidate();
 
             }
         });
