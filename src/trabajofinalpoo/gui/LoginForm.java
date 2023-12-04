@@ -19,7 +19,7 @@ public class LoginForm extends JFrame {
         Color fondoMenu = new Color(6, 65, 138);
         Font font = new Font("Monospaced", Font.PLAIN, 16);
 
-            super.setTitle("Nombre de la app");
+            super.setTitle("Mi atu");
             super.setSize(500, 720);
             super.setResizable(false);
             super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -15,8 +15,7 @@ import java.util.regex.Pattern;
 public class UserManager {
     private static HashMap<Corredor, Double> fees = new HashMap<>(4);
     private static HashMap<String, General> users = new HashMap<>();
-
-    private static final List<String> universidadesPermitidas = Arrays.asList("utp.edu.pe", "upc.edu.pe", "utec.edu.pe");
+    private static final List<String> universidadesPermitidas = Arrays.asList("utp.edu.pe", "upc.edu.pe", "utec.edu.pe", "upn.edu.pe");
 
     static void setTarifas(){
         fees.put(Corredor.AZUL, 2.20);

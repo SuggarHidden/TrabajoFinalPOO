@@ -18,7 +18,7 @@ public class RegisterForm extends JFrame {
         ImageIcon icono = new ImageIcon(getClass().getResource("logo.png"));
         Color fondoMenu = new Color(6, 65, 138);
         Font font = new Font("Arial", Font.BOLD, 14);
-        super.setTitle("Nombre de la app");
+        super.setTitle("Mi atu");
         super.setSize(500, 620);
         super.setResizable(false);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

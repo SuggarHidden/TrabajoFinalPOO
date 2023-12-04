@@ -1,6 +1,10 @@
 package trabajofinalpoo.users;
 
+import trabajofinalpoo.enums.Corredor;
+
 import java.util.UUID;
+
+import static trabajofinalpoo.UserManager.getTarifas;
 
 public class Estudiante extends General {
     private double discount;
@@ -17,6 +21,10 @@ public class Estudiante extends General {
 
     public double getDiscount() {
         return discount;
+    }
+
+    public double getDiscount(Corredor corredor) {
+        return getTarifas(corredor)*discount;
     }
 
     @Override

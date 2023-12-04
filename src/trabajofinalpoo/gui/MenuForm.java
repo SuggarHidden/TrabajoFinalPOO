@@ -2,6 +2,7 @@ package trabajofinalpoo.gui;
 
 import trabajofinalpoo.enums.Corredor;
 import trabajofinalpoo.enums.HistorialActionType;
+import trabajofinalpoo.users.Estudiante;
 import trabajofinalpoo.users.General;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static trabajofinalpoo.UserManager.getTarifas;
 import static trabajofinalpoo.UserManager.updateUser;
 
 public class MenuForm extends JFrame {
@@ -149,7 +151,7 @@ public class MenuForm extends JFrame {
         panelHistorial.setBounds(0, 190, 500, 400);
         panelHistorial.setLayout(null);
 
-        super.setTitle("Nombre de la app");
+        super.setTitle("Mi atu");
         super.setSize(500, 720);
         super.setResizable(false);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -237,18 +239,39 @@ public class MenuForm extends JFrame {
         buttonViaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.setVisible(false);
+                double precioAzul = getTarifas(Corredor.AZUL);
+                double precioMorado = getTarifas(Corredor.MORADO);
+                double precioAmarillo = getTarifas(Corredor.AMARILLO);
+                double precioRojo = getTarifas(Corredor.ROJO);
+                if (usuario instanceof Estudiante) {
+                    precioAzul = ((Estudiante) usuario).getDiscount(Corredor.AZUL);
+                    precioMorado = ((Estudiante) usuario).getDiscount(Corredor.MORADO);
+                    precioAmarillo = ((Estudiante) usuario).getDiscount(Corredor.AMARILLO);
+                    precioRojo = ((Estudiante) usuario).getDiscount(Corredor.ROJO);
+                }
 
+                panel.setVisible(false);
+                Font fontBoton = new Font("Monospaced", Font.PLAIN, 18);
                 JButton busAzul = new JButton();
                 busAzul.setName("AZUL");
                 busAzul.setBackground(new Color(22, 32, 215));
                 busAzul.setBounds(0, 0, 250, 150);
+                busAzul.setText("S/."+String.valueOf(precioAzul));
+                busAzul.setForeground(Color.WHITE);
+                busAzul.setFont(fontBoton);
+                busAzul.setHorizontalTextPosition(JButton.CENTER);
+                busAzul.setVerticalTextPosition(JButton.BOTTOM);
                 busAzul.setIcon(busIcon);
                 busAzul.setFocusable(false);
                 busAzul.setBorderPainted(false);
 
                 JButton busRojo = new JButton();
                 busRojo.setName("ROJO");
+                busRojo.setText("S/."+String.valueOf(precioRojo));
+                busRojo.setForeground(Color.WHITE);
+                busRojo.setFont(fontBoton);
+                busRojo.setHorizontalTextPosition(JButton.CENTER);
+                busRojo.setVerticalTextPosition(JButton.BOTTOM);
                 busRojo.setBackground(new Color(239, 16, 16));
                 busRojo.setBounds(250,0, 250,150);
                 busRojo.setIcon(busIcon);
@@ -257,6 +280,11 @@ public class MenuForm extends JFrame {
 
                 JButton busAmarillo = new JButton();
                 busAmarillo.setName("AMARILLO");
+                busAmarillo.setText("S/."+String.valueOf(precioAmarillo));
+                busAmarillo.setForeground(Color.WHITE);
+                busAmarillo.setFont(fontBoton);
+                busAmarillo.setHorizontalTextPosition(JButton.CENTER);
+                busAmarillo.setVerticalTextPosition(JButton.BOTTOM);
                 busAmarillo.setBackground(new Color(224, 250, 14));
                 busAmarillo.setBounds(0,150, 250,150);
                 busAmarillo.setIcon(busIcon);
@@ -265,6 +293,11 @@ public class MenuForm extends JFrame {
 
                 JButton busMorado = new JButton();
                 busMorado.setName("MORADO");
+                busMorado.setText("S/."+String.valueOf(precioMorado));
+                busMorado.setForeground(Color.WHITE);
+                busMorado.setFont(fontBoton);
+                busMorado.setHorizontalTextPosition(JButton.CENTER);
+                busMorado.setVerticalTextPosition(JButton.BOTTOM);
                 busMorado.setBackground(new Color(122, 0, 227));
                 busMorado.setBounds(250,150, 250,150);
                 busMorado.setIcon(busIcon);
@@ -296,7 +329,12 @@ public class MenuForm extends JFrame {
                         try {
                             JButton botonClickeado = (JButton) e.getSource();
                             String nombreBoton = botonClickeado.getName();
-                            usuario.getCard().hacerPago(Corredor.valueOf(nombreBoton));
+                            if (usuario instanceof Estudiante) {
+                                double discount = ((Estudiante) usuario).getDiscount();
+                                usuario.getCard().hacerPago(Corredor.valueOf(nombreBoton), discount);
+                            } else {
+                                usuario.getCard().hacerPago(Corredor.valueOf(nombreBoton));
+                            }
                             updateUser(usuario);
                             saldoLabel.setText(String.format("%.2f", usuario.getCard().getBalance()));
                             JOptionPane.showMessageDialog(null, "Viaje pagado exitosamente.");
@@ -313,7 +351,6 @@ public class MenuForm extends JFrame {
                 busMorado.addActionListener(boton);
                 busAmarillo.addActionListener(boton);
                 busRojo.addActionListener(boton);
-
 
                 panelBus.add(busAzul);
                 panelBus.add(busRojo);
