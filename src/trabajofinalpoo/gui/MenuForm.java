@@ -6,9 +6,11 @@ import trabajofinalpoo.users.Estudiante;
 import trabajofinalpoo.users.General;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.RoundRectangle2D;
 
 import static trabajofinalpoo.UserManager.getTarifas;
 import static trabajofinalpoo.UserManager.updateUser;
@@ -133,7 +135,7 @@ public class MenuForm extends JFrame {
         fondoMenu = new Color(7, 51, 105);
         fontColor = new Color(246, 243, 243);
         font = new Font("Monospaced", Font.PLAIN, 16);
-        Color panelBackGround = new Color(6, 65, 138);
+        Color panelBackGround = new Color(7, 51, 105);
 
         ImageIcon iconPath5 = new ImageIcon(getClass().getResource("bus.png"));
         Image iconScaled5 = iconPath5.getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT);
@@ -258,7 +260,7 @@ public class MenuForm extends JFrame {
                 JButton busAzul = new JButton();
                 busAzul.setName("AZUL");
                 busAzul.setBackground(new Color(22, 32, 215));
-                busAzul.setBounds(0, 0, 250, 150);
+                busAzul.setBounds(5, 5, 235, 140);
                 busAzul.setText("S/."+String.valueOf(precioAzul));
                 busAzul.setForeground(Color.WHITE);
                 busAzul.setFont(fontBoton);
@@ -276,7 +278,7 @@ public class MenuForm extends JFrame {
                 busRojo.setHorizontalTextPosition(JButton.CENTER);
                 busRojo.setVerticalTextPosition(JButton.BOTTOM);
                 busRojo.setBackground(new Color(239, 16, 16));
-                busRojo.setBounds(250,0, 250,150);
+                busRojo.setBounds(250,5, 230,140);
                 busRojo.setIcon(busIcon);
                 busRojo.setFocusable(false);
                 busRojo.setBorderPainted(false);
@@ -289,7 +291,7 @@ public class MenuForm extends JFrame {
                 busAmarillo.setHorizontalTextPosition(JButton.CENTER);
                 busAmarillo.setVerticalTextPosition(JButton.BOTTOM);
                 busAmarillo.setBackground(new Color(224, 250, 14));
-                busAmarillo.setBounds(0,150, 250,150);
+                busAmarillo.setBounds(5,155, 235,145);
                 busAmarillo.setIcon(busIcon);
                 busAmarillo.setFocusable(false);
                 busAmarillo.setBorderPainted(false);
@@ -302,7 +304,7 @@ public class MenuForm extends JFrame {
                 busMorado.setHorizontalTextPosition(JButton.CENTER);
                 busMorado.setVerticalTextPosition(JButton.BOTTOM);
                 busMorado.setBackground(new Color(122, 0, 227));
-                busMorado.setBounds(250,150, 250,150);
+                busMorado.setBounds(250,155, 230,145);
                 busMorado.setIcon(busIcon);
                 busMorado.setFocusable(false);
                 busMorado.setBorderPainted(false);
@@ -316,7 +318,7 @@ public class MenuForm extends JFrame {
                 cancelarBoton.setBackground(botonesColor);
                 cancelarBoton.setBorderPainted(false);
                 cancelarBoton.setForeground(Color.WHITE);
-                cancelarBoton.setBounds(0, 320, 250, 60);
+                cancelarBoton.setBounds(5, 320, 235, 60);
                 cancelarBoton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -359,8 +361,9 @@ public class MenuForm extends JFrame {
                 panelBus.add(busRojo);
                 panelBus.add(busAmarillo);
                 panelBus.add(busMorado);
+                MenuForm.super.add(panelBus);
+                panelBus.repaint();
                 panelBus.setVisible(true);
-                MenuForm.super.revalidate();
 
             }
         });
@@ -371,7 +374,6 @@ public class MenuForm extends JFrame {
                 panel.setVisible(false);
                 DefaultListModel<Object> modelo = new DefaultListModel<>();
                 JList<Object> list = new JList<>(modelo);
-                list.setBounds(0, 0, 500, 300);
                 list.setFont(font);
                 list.setBackground(new Color(131, 186, 255));
                 list.setForeground(Color.WHITE);
@@ -381,14 +383,14 @@ public class MenuForm extends JFrame {
                 }
 
                 JScrollPane scrollLista = new JScrollPane(list);
-                scrollLista.setBounds(0, 0, 500, 300);
+                scrollLista.setBounds(5, 0, 475, 300);
                 scrollLista.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 scrollLista.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 
                 JButton buttonRetroceder = new JButton("Retroceder");
                 buttonRetroceder.setFont(font);
-                buttonRetroceder.setBounds(0, 320, 250, 60);
+                buttonRetroceder.setBounds(5, 320, 235, 60);
                 buttonRetroceder.setHorizontalTextPosition(JButton.RIGHT);
                 buttonRetroceder.setHorizontalAlignment(JButton.LEFT);
                 buttonRetroceder.setFocusable(false);
@@ -405,10 +407,10 @@ public class MenuForm extends JFrame {
                 });
 
                 panelHistorial.removeAll();
-                panelHistorial.add(list);
                 panelHistorial.add(scrollLista);
                 panelHistorial.add(buttonRetroceder);
                 MenuForm.super.add(panelHistorial);
+                panelHistorial.repaint();
                 panelHistorial.setVisible(true);
             }
         });
@@ -426,5 +428,6 @@ public class MenuForm extends JFrame {
         });
 
     }
+
 
 }
